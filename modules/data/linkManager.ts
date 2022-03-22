@@ -38,6 +38,13 @@ export default class LinkManager {
     this.saveLinkFile(linkFile);
   }
 
+  public static removeLinkByID(id: string): void {
+    const linkFile = this.getLinkFile();
+    const index = linkFile.findIndex((l) => l.uuid === id);
+    linkFile.splice(index, 1);
+    this.saveLinkFile(linkFile);
+  }
+
   public static newLink(uuid: string, username: string, code: string): NewLinkReturn {
     const codeData = CodeManager.getCode(code);
     if (!codeData) {
