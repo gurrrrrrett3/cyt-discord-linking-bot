@@ -24,6 +24,18 @@ const Command = {
 
     switch (subcommand) {
       case "link":
+
+      if (LinkManager.getLinkByID(interaction.user.id)) {
+        const embed = new Discord.MessageEmbed()
+            .setTitle("Already linked")
+            .setDescription("You are already linked to your Minecraft account")
+            .setColor("#ff0000");
+        interaction.reply({
+            embeds: [embed],
+            ephemeral: true,
+        });
+      } 
+      
         const code = CodeManager.newCode(interaction.user);
         const embed = new Discord.MessageEmbed()
           .setTitle("Almost there...")

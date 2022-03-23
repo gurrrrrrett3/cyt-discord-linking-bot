@@ -45,12 +45,29 @@ export default class LinkManager {
     this.saveLinkFile(linkFile);
   }
 
+  public static getLinkByID(id: string): Link | undefined {
+    const linkFile = this.getLinkFile();
+    return linkFile.find((l) => l.id === id);
+  }
+
+  public static getLinkbyUUID(uuid: string): Link | undefined {
+    const linkFile = this.getLinkFile();
+    return linkFile.find((l) => l.uuid === uuid);
+  }
+
   public static newLink(uuid: string, username: string, code: string): NewLinkReturn {
     const codeData = CodeManager.getCode(code);
     if (!codeData) {
       return {
         success: false,
         message: "Code not found",
+      };
+    }
+
+    if (this.getLinkbyUUID(uuid) !== undefined) {
+      return {
+        success: false,
+        message: "Link already exists",
       };
     }
 

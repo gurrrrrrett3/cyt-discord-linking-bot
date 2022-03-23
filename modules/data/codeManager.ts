@@ -42,6 +42,10 @@ export default class CodeManager {
       code = Math.floor(Math.random() * 10000).toString();
     } while (codeList.includes(parseInt(code)));
 
+    if (code.length < 4) {
+      code = "0".repeat(4 - code.length) + code;
+    }
+
     return code;
   }
 
@@ -57,7 +61,7 @@ export default class CodeManager {
     const code = this.genCode();
     codeFile.push({
       code,
-      owner: user.id,
+      owner: user.username,
       descriminator: user.discriminator,
       id: user.id,
       created: Date.now(),
